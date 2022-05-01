@@ -2,17 +2,30 @@ version: '3.7'
 
 services:
   api:
+    networks:
+      - fullstack
+    restart: always
     build:
-      dockerfile: Dockerfile
+      dockerfile: ./docker/api/Dockerfile
     ports:
       - "9090:9090"
+    depends_on:
+      - db
     links:
       - db
 
   db:
-    image: postgres:14.2
+    build:
+      context: docker/postgres
+      dockerfile: Dockerfile
     restart: always
+    networks:
+      - fullstack
     ports:
       - "5432:5432"
     environment:
       POSTGRES_PASSWORD: example
+
+networks:
+  fullstack:
+    driver: bridge
