@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  api:
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "9090:9090"
+    links:
+      - db
+
+  db:
+    image: postgres:14.2
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
