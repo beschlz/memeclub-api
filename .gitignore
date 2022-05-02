@@ -2,5 +2,4 @@
 .idea/dataSources.local.xml
 .idea/dataSources.xml
 
-.idea/sonarlint/issuestore
-.idea/sonarlint/**
+.idea/sonarlint/
