@@ -2,9 +2,10 @@
 
 ```mermaid
 graph LR
-    user(user)-- minio.memeclub.io/images/:id --> minio(MinIO)
-    api(API)-- Saves and loads Data from DB ---postgres
-    postgres-. Link to resource is saved in Database .-> minio(MinIO)
+    client(Client)-- minio.memeclub.io/images/:id -->minio(MinIO)
+    client -- calls backedn --> backend
+    backend(Backend)-- Saves and loads Data from DB ---postgres
+    backend-. Link to resource is saved in Database .-> minio(MinIO)
 ```
 
 
