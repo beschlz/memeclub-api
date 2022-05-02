@@ -2,4 +2,4 @@ README.md
 /documentation
 /.idea
 LICENSE
-docker-compose.yml
+docker/docker-compose/docker-compose.yml

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/beschlz/memeclub-api/database"
-	"github.com/beschlz/memeclub-api/version"
+	"github.com/beschlz/memeclub-api/src/database"
+	"github.com/beschlz/memeclub-api/src/version"
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
 	"log"

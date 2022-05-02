@@ -3,3 +3,4 @@
 .idea/dataSources.xml
 
 .idea/sonarlint/issuestore
+.idea/sonarlint/**
