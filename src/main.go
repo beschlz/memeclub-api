@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/beschlz/memeclub-api/src/database"
+	"github.com/beschlz/memeclub-api/src/posts"
 	"github.com/beschlz/memeclub-api/src/users"
 	"github.com/beschlz/memeclub-api/src/version"
 	"github.com/gofiber/fiber/v2"
@@ -25,6 +26,7 @@ func main() {
 
 	version.RegisterVersion(app)
 	users.RegisterUserRoutes(app)
+	posts.RegisterPosts(app)
 
 	log.Fatal(app.Listen(":9090"))
 }
