@@ -9,6 +9,7 @@ import (
 type postRepositoryInterface interface {
 	GetAllPosts() (*[]Post, error)
 	Save(post *Post) error
+	GetById(postId int64) error
 }
 
 type PostRepository struct {
@@ -36,4 +37,16 @@ func (postRepository *PostRepository) Save(post *Post) error {
 	}
 
 	return err
+}
+
+func (postRepository *PostRepository) GetById(postId int64) (*Post, error) {
+	var post Post
+	result := database.DB.First(&post, postId)
+
+	var err error
+	if result.Error != nil {
+		err = fmt.Errorf("could not create post with values %+v", post)
+	}
+
+	return &post, err
 }

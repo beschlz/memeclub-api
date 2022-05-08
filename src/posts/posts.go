@@ -2,6 +2,7 @@ package posts
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"strconv"
 )
 
 type Post struct {
@@ -21,6 +22,7 @@ type CreatePostRequest struct {
 func RegisterPosts(app *fiber.App) {
 	app.Get("/api/posts", getPosts)
 	app.Post("/api/posts", createPost)
+	app.Get("/api/posts/:postId", getPostById)
 }
 
 func getPosts(ctx *fiber.Ctx) error {
@@ -51,4 +53,21 @@ func createPost(ctx *fiber.Ctx) error {
 	}
 
 	return ctx.Status(200).JSON(post)
+}
+
+func getPostById(ctx *fiber.Ctx) error {
+	postIdParam := ctx.Params("postId")
+
+	postId, err := strconv.ParseInt(postIdParam, 10, 64)
+	if err != nil {
+		return ctx.Status(fiber.StatusNotFound).Send(nil)
+	}
+
+	post, err := GetPostById(postId)
+
+	if err != nil {
+		return ctx.Status(fiber.StatusNotFound).Send(nil)
+	}
+
+	return ctx.Status(fiber.StatusOK).JSON(post)
 }

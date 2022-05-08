@@ -11,6 +11,11 @@ func GetAllPosts() (*[]Post, error) {
 	return repo.GetAllPosts()
 }
 
+func GetPostById(postId int64) (*Post, error) {
+	repo := PostRepository{}
+	return repo.GetById(postId)
+}
+
 func CreatePost(post *CreatePostRequest) (*Post, error) {
 	if err := validatePost(post); err != nil {
 		return nil, err
