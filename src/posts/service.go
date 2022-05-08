@@ -6,17 +6,15 @@ import (
 	"strings"
 )
 
-func GetAllPosts() (*[]Post, error) {
-	repo := PostRepository{}
+func GetAllPosts(repo *PostRepository) (*[]Post, error) {
 	return repo.GetAllPosts()
 }
 
-func GetPostById(postId int64) (*Post, error) {
-	repo := PostRepository{}
+func GetPostById(postId int64, repo *PostRepository) (*Post, error) {
 	return repo.GetById(postId)
 }
 
-func CreatePost(post *CreatePostRequest) (*Post, error) {
+func CreatePost(post *CreatePostRequest, repo *PostRepository) (*Post, error) {
 	if err := validatePost(post); err != nil {
 		return nil, err
 	}
@@ -31,7 +29,6 @@ func CreatePost(post *CreatePostRequest) (*Post, error) {
 		ImageUrl:    "", // ToDo: save image beforehand and insert  url here
 	}
 
-	repo := PostRepository{}
 	if err := repo.Save(&postToSave); err != nil {
 		return nil, err
 	}
