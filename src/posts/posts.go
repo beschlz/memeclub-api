@@ -23,6 +23,7 @@ func RegisterPosts(app *fiber.App) {
 	app.Get("/api/posts", getPosts)
 	app.Post("/api/posts", createPost)
 	app.Get("/api/posts/:postId", getPostById)
+	app.Delete("/api/posts/:postId", deletePostById)
 }
 
 func getPosts(ctx *fiber.Ctx) error {
@@ -73,4 +74,22 @@ func getPostById(ctx *fiber.Ctx) error {
 	}
 
 	return ctx.Status(fiber.StatusOK).JSON(post)
+}
+
+func deletePostById(ctx *fiber.Ctx) error {
+	postIdParam := ctx.Params("postId")
+
+	postId, err := strconv.ParseInt(postIdParam, 10, 64)
+	if err != nil {
+		return ctx.Status(fiber.StatusNotFound).Send(nil)
+	}
+
+	repo := PostRepository{}
+	deleteErr := DeletePostById(postId, &repo)
+
+	if deleteErr != nil {
+		return ctx.Status(fiber.StatusNotFound).Send(nil)
+	}
+
+	return ctx.Status(200).Send(nil)
 }

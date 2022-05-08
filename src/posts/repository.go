@@ -50,3 +50,19 @@ func (postRepository *PostRepository) GetById(postId int64) (*Post, error) {
 
 	return &post, err
 }
+
+func (p *PostRepository) DeleteById(postId int64) error {
+	post, err := p.GetById(postId)
+
+	if err != nil {
+		return err
+	}
+
+	result := database.DB.Delete(post)
+
+	if result.Error != nil {
+		return fmt.Errorf("error deleting post with id %v", postId)
+	}
+
+	return nil
+}

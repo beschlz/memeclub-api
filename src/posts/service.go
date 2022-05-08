@@ -36,6 +36,10 @@ func CreatePost(post *CreatePostRequest, repo *PostRepository) (*Post, error) {
 	return &postToSave, nil
 }
 
+func DeletePostById(postId int64, repo *PostRepository) error {
+	return repo.DeleteById(postId)
+}
+
 func validatePost(postRequest *CreatePostRequest) error {
 	var err error
 
