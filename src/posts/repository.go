@@ -2,33 +2,35 @@ package posts
 
 import (
 	"fmt"
-	"github.com/beschlz/memeclub-api/src/database"
 	"log"
+
+	"github.com/beschlz/memeclub-api/src/database"
 )
 
-type postRepositoryInterface interface {
+type PostRepositoryInterface interface {
 	GetAllPosts() (*[]Post, error)
 	Save(post *Post) error
-	GetById(postId int64) error
+	GetById(postId int64) (*Post, error)
+	DeleteById(postId int64) error
 }
 
 type PostRepository struct {
-	postRepositoryInterface
+	PostRepositoryInterface
 }
 
-func (postRepository *PostRepository) GetAllPosts() (*[]Post, error) {
-	var posts = []Post{}
-	result := database.DB.Find(&posts)
+func (p *PostRepository) GetAllPosts() (*[]Post, error) {
+	var posts = new([]Post)
+	result := database.DB.Find(posts)
 
 	if result.Error != nil {
 		log.Println("Error accessing db")
-		return &posts, result.Error
+		return posts, result.Error
 	}
 
-	return &posts, nil
+	return posts, nil
 }
 
-func (postRepository *PostRepository) Save(post *Post) error {
+func (p *PostRepository) Save(post *Post) error {
 	result := database.DB.Save(post)
 
 	var err error
@@ -39,7 +41,7 @@ func (postRepository *PostRepository) Save(post *Post) error {
 	return err
 }
 
-func (postRepository *PostRepository) GetById(postId int64) (*Post, error) {
+func (p *PostRepository) GetById(postId int64) (*Post, error) {
 	var post Post
 	result := database.DB.First(&post, postId)
 

@@ -27,8 +27,7 @@ func RegisterPosts(app *fiber.App) {
 }
 
 func getPosts(ctx *fiber.Ctx) error {
-	repo := PostRepository{}
-	posts, err := GetAllPosts(&repo)
+	posts, err := GetAllPosts()
 
 	if err != nil {
 		return ctx.Status(fiber.StatusBadRequest).Send(nil)
@@ -44,8 +43,7 @@ func createPost(ctx *fiber.Ctx) error {
 		return ctx.Status(fiber.StatusBadRequest).Send(nil)
 	}
 
-	repo := PostRepository{}
-	post, err := CreatePost(createPostRequest, &repo)
+	post, err := CreatePost(createPostRequest)
 
 	if err != nil {
 		return ctx.Status(fiber.StatusBadRequest).Send(nil)
@@ -66,8 +64,7 @@ func getPostById(ctx *fiber.Ctx) error {
 		return ctx.Status(fiber.StatusNotFound).Send(nil)
 	}
 
-	repo := PostRepository{}
-	post, err := GetPostById(postId, &repo)
+	post, err := GetPostById(postId)
 
 	if err != nil {
 		return ctx.Status(fiber.StatusNotFound).Send(nil)
@@ -84,8 +81,7 @@ func deletePostById(ctx *fiber.Ctx) error {
 		return ctx.Status(fiber.StatusNotFound).Send(nil)
 	}
 
-	repo := PostRepository{}
-	deleteErr := DeletePostById(postId, &repo)
+	deleteErr := DeletePostById(postId)
 
 	if deleteErr != nil {
 		return ctx.Status(fiber.StatusNotFound).Send(nil)

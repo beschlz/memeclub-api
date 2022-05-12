@@ -6,15 +6,17 @@ import (
 	"strings"
 )
 
-func GetAllPosts(repo *PostRepository) (*[]Post, error) {
-	return repo.GetAllPosts()
+var PostRepo PostRepositoryInterface = &PostRepository{}
+
+func GetAllPosts() (*[]Post, error) {
+	return PostRepo.GetAllPosts()
 }
 
-func GetPostById(postId int64, repo *PostRepository) (*Post, error) {
-	return repo.GetById(postId)
+func GetPostById(postId int64) (*Post, error) {
+	return PostRepo.GetById(postId)
 }
 
-func CreatePost(post *CreatePostRequest, repo *PostRepository) (*Post, error) {
+func CreatePost(post *CreatePostRequest) (*Post, error) {
 	if err := validatePost(post); err != nil {
 		return nil, err
 	}
@@ -29,15 +31,15 @@ func CreatePost(post *CreatePostRequest, repo *PostRepository) (*Post, error) {
 		ImageUrl:    "", // ToDo: save image beforehand and insert  url here
 	}
 
-	if err := repo.Save(&postToSave); err != nil {
+	if err := PostRepo.Save(&postToSave); err != nil {
 		return nil, err
 	}
 
 	return &postToSave, nil
 }
 
-func DeletePostById(postId int64, repo *PostRepository) error {
-	return repo.DeleteById(postId)
+func DeletePostById(postId int64) error {
+	return PostRepo.DeleteById(postId)
 }
 
 func validatePost(postRequest *CreatePostRequest) error {
