@@ -1,4 +1,5 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/beschlz/memeclub-api/badge)](https://www.codefactor.io/repository/github/beschlz/memeclub-api)
+[![Coverage Status](https://coveralls.io/repos/github/beschlz/memeclub-api/badge.svg?branch=main)](https://coveralls.io/github/beschlz/memeclub-api?branch=main)
 # memeclub-api
 
 Memeclub is a mere after-work project to create a website where memes can be exchanged privately.
