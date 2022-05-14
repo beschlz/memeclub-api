@@ -23,6 +23,7 @@ func main() {
 	app := fiber.New()
 
 	database.InitDatabase()
+	database.InitMinio()
 
 	version.RegisterVersion(app)
 	users.RegisterUserRoutes(app)
