@@ -14,7 +14,7 @@ func RegisterUserRoutes(app *fiber.App) {
 func getUserByUsername(ctx *fiber.Ctx) error {
 	username := ctx.Params("username")
 
-	user, err := dbGetUserbyUsername(username)
+	user, err := GetUserBayName(username)
 
 	if err != nil {
 		return ctx.Status(fiber.StatusNotFound).Send(nil)
