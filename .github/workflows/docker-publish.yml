@@ -11,7 +11,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: memeclubapi
+  IMAGE_NAME: memeclub/memeclubapi
 
 jobs:
   build-and-push-image:
