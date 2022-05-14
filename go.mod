@@ -3,7 +3,7 @@ module github.com/beschlz/memeclub-api
 go 1.18
 
 require (
-	github.com/gofiber/fiber/v2 v2.32.0
+	github.com/gofiber/fiber/v2 v2.33.0
 	github.com/golang-migrate/migrate/v4 v4.15.2
 	github.com/joho/godotenv v1.4.0
 	gorm.io/driver/postgres v1.3.5
