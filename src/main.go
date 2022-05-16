@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/beschlz/memeclub-api/src/auth"
 	"github.com/beschlz/memeclub-api/src/database"
 	"github.com/beschlz/memeclub-api/src/posts"
 	"github.com/beschlz/memeclub-api/src/users"
@@ -28,6 +29,7 @@ func main() {
 	version.RegisterVersion(app)
 	users.RegisterUserRoutes(app)
 	posts.RegisterPosts(app)
+	auth.RegisterAuthEndpoints(app)
 
 	log.Fatal(app.Listen(":9090"))
 }

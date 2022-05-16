@@ -7,8 +7,14 @@ type User struct {
 	Useremail string `gorm:"column:user_email" json:"user_email"`
 }
 
+type CreateUserRequest struct {
+	Username string `json:"username"`
+	Usermail string `json:"user_email"`
+}
+
 func RegisterUserRoutes(app *fiber.App) {
 	app.Get("/api/users/:username", getUserByUsername)
+	app.Post("/api/users", createUser)
 }
 
 func getUserByUsername(ctx *fiber.Ctx) error {
@@ -21,4 +27,18 @@ func getUserByUsername(ctx *fiber.Ctx) error {
 	}
 
 	return ctx.Status(fiber.StatusOK).JSON(user)
+}
+
+func createUser(ctx *fiber.Ctx) error {
+
+	request := new(CreateUserRequest)
+
+	if err := ctx.BodyParser(request); err != nil {
+		return ctx.Status(fiber.StatusBadRequest).Send(nil)
+	}
+
+	user := new(User)
+	user.Username = request.Username
+
+	return ctx.Status(fiber.StatusCreated).JSON(user)
 }
