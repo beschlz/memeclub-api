@@ -9,5 +9,5 @@ RUN rm .env && \
 
 FROM gcr.io/distroless/static:latest
 USER nonroot:nonroot
-COPY --from=builder --chown=nonroot:nonroot /go/memeclub/memeclub-api /
+COPY --from=builder --chown=nonroot:nonroot /go/src/memeclub-api /
 CMD ["/app"]
