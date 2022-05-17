@@ -9,7 +9,7 @@ type MockedUserRepo struct {
 	UserRepository
 }
 
-func (m *MockedUserRepo) getUserByUsername(username string) (*User, error) {
+func (m *MockedUserRepo) GetUserByUsername(username string) (*User, error) {
 
 	if username == "notfound" {
 		return nil, fmt.Errorf("User not found\n")
@@ -24,7 +24,7 @@ func (m *MockedUserRepo) getUserByUsername(username string) (*User, error) {
 }
 
 func TestGetUserBayName(t *testing.T) {
-	userRepo = &MockedUserRepo{}
+	UserRepo = &MockedUserRepo{}
 	user, _ := GetUserBayName("besch")
 
 	if user.Username != "besch" {

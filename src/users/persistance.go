@@ -7,15 +7,16 @@ import (
 )
 
 type UserRepository interface {
-	getUserByUsername(username string) (*User, error)
+	GetUserByUsername(username string) (*User, error)
+	CreateUser(*User) error
 }
 
 type UserRepositoryImpl struct {
 	UserRepository
 }
 
-func (u *UserRepositoryImpl) getUserByUsername(username string) (*User, error) {
-	var user *User
+func (u *UserRepositoryImpl) GetUserByUsername(username string) (*User, error) {
+	user := new(User)
 	dbErr := database.DB.Where("username = ?", username).Find(user)
 
 	if dbErr.Error != nil {
@@ -30,4 +31,10 @@ func (u *UserRepositoryImpl) getUserByUsername(username string) (*User, error) {
 	}
 
 	return user, nil
+}
+
+func (u *UserRepositoryImpl) CreateUser(user *User) error {
+	result := database.DB.Save(user)
+
+	return result.Error
 }

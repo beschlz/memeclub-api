@@ -2,14 +2,22 @@ package auth
 
 import (
 	"fmt"
+	"github.com/beschlz/memeclub-api/src/users"
 	"github.com/golang-jwt/jwt/v4"
+	"golang.org/x/crypto/bcrypt"
 	"time"
 )
 
 func AuthorizeUser(creds *Credentials) (string, error) {
-	expectedPassword, ok := users[creds.Username]
+	user, err := users.GetUserBayName(creds.Username)
 
-	if !ok || expectedPassword != creds.Password {
+	if err != nil {
+		return "", err
+	}
+
+	authOK := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(creds.Password))
+
+	if authOK != nil {
 		return "", fmt.Errorf("unauthorized")
 	}
 
