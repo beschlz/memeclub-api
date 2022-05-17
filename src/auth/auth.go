@@ -9,11 +9,6 @@ import (
 
 var key = []byte(os.Getenv("JWT_SECRET"))
 
-var users = map[string]string{
-	"user1": "password1",
-	"user2": "password2",
-}
-
 type TokenResponse struct {
 	Token string `json:"token"`
 }
