@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/beschlz/memeclub-api/src/database"
+	"github.com/beschlz/memeclub-api/memeclub/database"
 )
 
 type PostRepositoryInterface interface {

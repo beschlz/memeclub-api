@@ -1,11 +1,11 @@
 package main
 
 import (
-	"github.com/beschlz/memeclub-api/src/auth"
-	"github.com/beschlz/memeclub-api/src/database"
-	"github.com/beschlz/memeclub-api/src/posts"
-	"github.com/beschlz/memeclub-api/src/users"
-	"github.com/beschlz/memeclub-api/src/version"
+	"github.com/beschlz/memeclub-api/memeclub/auth"
+	"github.com/beschlz/memeclub-api/memeclub/database"
+	"github.com/beschlz/memeclub-api/memeclub/posts"
+	"github.com/beschlz/memeclub-api/memeclub/users"
+	"github.com/beschlz/memeclub-api/memeclub/version"
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
 	"log"
