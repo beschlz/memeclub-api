@@ -2,7 +2,7 @@ package users
 
 import (
 	"fmt"
-	"github.com/beschlz/memeclub-api/src/database"
+	"github.com/beschlz/memeclub-api/memeclub/database"
 	"log"
 )
 

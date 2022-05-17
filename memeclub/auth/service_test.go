@@ -1,7 +1,7 @@
 package auth
 
 import (
-	"github.com/beschlz/memeclub-api/src/users"
+	"github.com/beschlz/memeclub-api/memeclub/users"
 	"testing"
 )
 

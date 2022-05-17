@@ -2,7 +2,7 @@ package auth
 
 import (
 	"fmt"
-	"github.com/beschlz/memeclub-api/src/users"
+	"github.com/beschlz/memeclub-api/memeclub/users"
 	"github.com/golang-jwt/jwt/v4"
 	"golang.org/x/crypto/bcrypt"
 	"time"
