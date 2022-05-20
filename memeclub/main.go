@@ -27,9 +27,12 @@ func main() {
 	database.InitMinio()
 
 	version.RegisterVersion(app)
+	auth.RegisterAuthEndpoints(app)
+
+	app.Use(auth.PrivateRoute)
+
 	users.RegisterUserRoutes(app)
 	posts.RegisterPosts(app)
-	auth.RegisterAuthEndpoints(app)
 
 	log.Fatal(app.Listen(":9090"))
 }
