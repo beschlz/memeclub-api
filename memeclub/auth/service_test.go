@@ -19,7 +19,7 @@ func (u *MockedUserRepo) GetUserByUsername(username string) (*users.User, error)
 	return &user, nil
 }
 
-func (u *MockedUserRepo) CreateUser(user *users.User) error {
+func (u *MockedUserRepo) CreateUser(_ *users.User) error {
 	return nil
 }
 
@@ -46,6 +46,37 @@ func TestAuthorizeUser(t *testing.T) {
 	token, err = AuthorizeUser(correctCreds)
 
 	if err != nil || token == "" {
+		t.Fail()
+	}
+}
+
+func TestValidateToken(t *testing.T) {
+	var repo users.UserRepository = &MockedUserRepo{}
+	users.UserRepo = repo
+
+	correctCreds := &Credentials{
+		Username: "besch",
+		Password: "AlleMeineEntchen",
+	}
+
+	token, _ := AuthorizeUser(correctCreds)
+
+	validateTokenErr := ValidateToken(token)
+
+	if validateTokenErr != nil {
+		t.Fail()
+	}
+
+	wrongCreds := &Credentials{
+		Username: "besch",
+		Password: "falschesPassword",
+	}
+
+	token, _ = AuthorizeUser(wrongCreds)
+
+	validateTokenErr = ValidateToken(token)
+
+	if validateTokenErr == nil {
 		t.Fail()
 	}
 }

@@ -35,3 +35,20 @@ func AuthorizeUser(creds *Credentials) (string, error) {
 
 	return tokenString, err
 }
+
+func ValidateToken(token string) error {
+	claims := &Claims{}
+
+	parsedToken, err := jwt.ParseWithClaims(
+		token,
+		claims,
+		func(jwtToken *jwt.Token) (interface{}, error) {
+			return key, nil
+		})
+
+	if err != nil || !parsedToken.Valid {
+		return err
+	}
+
+	return nil
+}

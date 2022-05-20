@@ -51,3 +51,15 @@ func Auth(ctx *fiber.Ctx) error {
 	res := TokenResponse{Token: token}
 	return ctx.Status(fiber.StatusOK).JSON(res)
 }
+
+func PrivateRoute(ctx *fiber.Ctx) error {
+	token := ctx.Cookies("token")
+
+	err := ValidateToken(token)
+
+	if err != nil {
+		return ctx.SendStatus(fiber.StatusUnauthorized)
+	}
+
+	return ctx.Next()
+}
