@@ -1,24 +1,26 @@
 package auth
 
 import (
-	"fmt"
+	"errors"
 	"github.com/beschlz/memeclub-api/memeclub/users"
 	"github.com/golang-jwt/jwt/v4"
 	"golang.org/x/crypto/bcrypt"
 	"time"
 )
 
+var Unauthorized = errors.New("unauthorized")
+
 func AuthorizeUser(creds *Credentials) (string, error) {
 	user, err := users.GetUserBayName(creds.Username)
 
-	if err != nil {
-		return "", err
+	if err != nil && user == nil {
+		return "", Unauthorized
 	}
 
 	authOK := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(creds.Password))
 
 	if authOK != nil {
-		return "", fmt.Errorf("unauthorized")
+		return "", Unauthorized
 	}
 
 	expirationTime := jwt.NumericDate{Time: time.Now().Add(time.Minute * 30)}
