@@ -1,7 +1,7 @@
 package users
 
 import (
-	"fmt"
+	"errors"
 	"github.com/beschlz/memeclub-api/memeclub/database"
 	"log"
 )
@@ -15,6 +15,8 @@ type UserRepositoryImpl struct {
 	UserRepository
 }
 
+var UserNotFound = errors.New("UserNotFound")
+
 func (u *UserRepositoryImpl) GetUserByUsername(username string) (*User, error) {
 	user := new(User)
 	dbErr := database.DB.Where("username = ?", username).Find(user)
@@ -27,7 +29,7 @@ func (u *UserRepositoryImpl) GetUserByUsername(username string) (*User, error) {
 	}
 
 	if user.Username == "" {
-		return user, fmt.Errorf("could not find a user with username %v", username)
+		return user, UserNotFound
 	}
 
 	return user, nil

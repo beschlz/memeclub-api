@@ -19,11 +19,11 @@ type CreateUserRequest struct {
 }
 
 func RegisterUserRoutes(app *fiber.App) {
-	app.Get("/api/users/:username", getUserByUsername)
-	app.Post("/api/users", createUser)
+	app.Get("/api/users/:username", GetUserByUsernameRoute)
+	app.Post("/api/users", CreateUserRoute)
 }
 
-func getUserByUsername(ctx *fiber.Ctx) error {
+func GetUserByUsernameRoute(ctx *fiber.Ctx) error {
 	username := ctx.Params("username")
 
 	user, err := GetUserBayName(username)
@@ -35,8 +35,7 @@ func getUserByUsername(ctx *fiber.Ctx) error {
 	return ctx.Status(fiber.StatusOK).JSON(user)
 }
 
-func createUser(ctx *fiber.Ctx) error {
-
+func CreateUserRoute(ctx *fiber.Ctx) error {
 	request := new(CreateUserRequest)
 
 	if err := ctx.BodyParser(request); err != nil {
