@@ -43,9 +43,11 @@ func Auth(ctx *fiber.Ctx) error {
 	}
 
 	ctx.Cookie(&fiber.Cookie{
-		Name:    "token",
-		Value:   token,
-		Expires: time.Now().Add(time.Minute * 30),
+		Name:     "token",
+		Value:    token,
+		Expires:  time.Now().Add(time.Minute * 30),
+		Secure:   true,
+		HTTPOnly: true,
 	})
 
 	res := TokenResponse{Token: token}
