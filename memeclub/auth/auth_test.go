@@ -13,14 +13,14 @@ type MockedUserRepo struct {
 	users.UserRepository
 }
 
-// Mocks UserRepository.GetByUserName() Given the username 'unkown' this mock returns nil
-// as a user and Unauthorized error
-// Otherwise: It will return a valid user with the given name, the mail bendt@schulz-hamburg.de
-// and a HasedPassword resembling "AlleMeineEntchen"
 func (u *MockedUserRepo) GetUserByUsername(username string) (*users.User, error) {
 
 	if username == "unkown" {
 		return nil, Unauthorized
+	}
+
+	if username == "NeuerNutzer" {
+		return nil, users.UserNotFound
 	}
 
 	user := users.User{
@@ -37,9 +37,6 @@ func (u *MockedUserRepo) CreateUser(_ *users.User) error {
 }
 
 func TestAuth(t *testing.T) {
-	var repo users.UserRepository = &MockedUserRepo{}
-	users.UserRepo = repo
-
 	tests := []struct {
 		description  string
 		expectedCode int
@@ -79,8 +76,7 @@ func TestAuth(t *testing.T) {
 		},
 	}
 
-	app := fiber.New()
-	RegisterAuthEndpoints(app)
+	app := setupMockedEnv()
 
 	for _, test := range tests {
 		var buf bytes.Buffer
@@ -97,7 +93,32 @@ func TestAuth(t *testing.T) {
 		resp, _ := app.Test(req, -1)
 
 		if resp == nil || test.expectedCode != resp.StatusCode {
-			t.Fatalf("Test: %v failed", test.description)
+			t.Logf("Test: %v failed", test.description)
+			t.Fail()
 		}
 	}
+}
+
+func TestAuthWithInvalidBody(t *testing.T) {
+	app := setupMockedEnv()
+	req := httptest.NewRequest("POST", "/api/auth", nil)
+	req.Header = map[string][]string{
+		"Content-Type": {"application/json"},
+	}
+	resp, _ := app.Test(req, -1)
+
+	if resp == nil || 400 != resp.StatusCode {
+		t.Fail()
+	}
+}
+
+func setupMockedEnv() *fiber.App {
+	var repo users.UserRepository = &MockedUserRepo{}
+	users.UserRepo = repo
+	app := fiber.New()
+	RegisterAuthEndpoints(app)
+
+	key = []byte("supersecretkey")
+
+	return app
 }
