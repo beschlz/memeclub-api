@@ -7,7 +7,7 @@ require (
 	github.com/golang-jwt/jwt/v4 v4.4.1
 	github.com/golang-migrate/migrate/v4 v4.15.2
 	github.com/joho/godotenv v1.4.0
-	github.com/minio/minio-go/v7 v7.0.27
+	github.com/minio/minio-go/v7 v7.0.30
 	golang.org/x/crypto v0.0.0-20220517005047-85d78b3ac167
 	gorm.io/driver/postgres v1.3.7
 	gorm.io/gorm v1.23.6
@@ -35,7 +35,6 @@ require (
 	github.com/lib/pq v1.10.2 // indirect
 	github.com/minio/md5-simd v1.1.0 // indirect
 	github.com/minio/sha256-simd v0.1.1 // indirect
-	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/rs/xid v1.2.1 // indirect
