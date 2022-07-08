@@ -10,7 +10,7 @@ require (
 	github.com/minio/minio-go/v7 v7.0.30
 	golang.org/x/crypto v0.0.0-20220517005047-85d78b3ac167
 	gorm.io/driver/postgres v1.3.7
-	gorm.io/gorm v1.23.6
+	gorm.io/gorm v1.23.8
 )
 
 require (
